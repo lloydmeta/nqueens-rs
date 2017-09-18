@@ -1,0 +1,26 @@
+[package]
+name = "nqueens"
+version = "0.1.0"
+authors = ["Lloyd <lloydmeta@gmail.com>"]
+description = "NQueens solver."
+license = "MIT"
+documentation = "https://docs.rs/nqueens"
+repository = "https://github.com/lloydmeta/nqueens-rs"
+keywords = ["nqueens"]
+readme = "README.md"
+
+[dependencies]
+clap = "2.26"
+
+[dev-dependencies]
+pretty_assertions = "0.3.4"
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+
+[[bin]]
+name = "nqueens"
+test = false
+doc = false
