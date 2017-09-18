@@ -25,9 +25,7 @@ fn inner_main() -> Result<(), Box<Error>> {
     let app = App::new("nqueens")
         .version(version.as_str())
         .author("Lloyd (github.com/lloydmeta)")
-        .about(
-            "Solves the nqueens problem",
-        )
+        .about("Solves the nqueens problem")
         .arg(
             Arg::with_name(N_KEY)
                 .short("N")
@@ -35,9 +33,13 @@ fn inner_main() -> Result<(), Box<Error>> {
                 .takes_value(true)
                 .number_of_values(1)
                 .required(true)
-                .validator(|s| usize::from_str(&s[..]).map(|_| ()).map_err(|e| format!("{}", e)))
+                .validator(|s| {
+                    usize::from_str(&s[..]).map(|_| ()).map_err(
+                        |e| format!("{}", e),
+                    )
+                })
                 .help(
-                    "The number of queens and side length of the board yo uwant to solve for",
+                    "The number of queens and side length of the board you want to solve for.",
                 ),
         );
 
@@ -49,7 +51,8 @@ fn inner_main() -> Result<(), Box<Error>> {
             let n_queens = NQueens::new(usize::from_str(&n)?);
             let solutions = n_queens.solve();
             let rendered = solutions.render();
-            for render in rendered {
+            for (i, render) in rendered.iter().enumerate() {
+                println!("Solution #{}", i + 1);
                 println!("{}", render);
             }
             Ok(())

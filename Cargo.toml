@@ -1,6 +1,6 @@
 [package]
 name = "nqueens"
-version = "0.1.0"
+version = "0.1.2"
 authors = ["Lloyd <lloydmeta@gmail.com>"]
 description = "NQueens solver."
 license = "MIT"
@@ -24,3 +24,6 @@ lto = true
 name = "nqueens"
 test = false
 doc = false
+
+[badges]
+travis-ci = { repository = "lloydmeta/nqueens-rs" }

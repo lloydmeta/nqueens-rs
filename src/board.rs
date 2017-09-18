@@ -17,7 +17,11 @@ impl NQueens {
         )
     }
 
-    fn add_new_layer(&self, &Solutions(ref previous_solutions): &Solutions, row: &Row) -> Solutions {
+    fn add_new_layer(
+        &self,
+        &Solutions(ref previous_solutions): &Solutions,
+        row: &Row,
+    ) -> Solutions {
         let rows = previous_solutions
             .iter()
             .flat_map(|previous_solution| {
@@ -124,19 +128,30 @@ mod tests {
             println!("{}", render);
         }
 
-        fn build_checking_tuple((row_idx, &Column(col)): (usize, &Column)) -> (usize, isize, isize) {
-            (col, row_idx as isize + col as isize, row_idx as isize - col as isize)
+        fn build_checking_tuple(
+            (row_idx, &Column(col)): (usize, &Column),
+        ) -> (usize, isize, isize) {
+            (
+                col,
+                row_idx as isize + col as isize,
+                row_idx as isize - col as isize,
+            )
         }
 
         for solution in solutions.data() {
-            let checker: Vec<_> = solution.data().iter().enumerate().map(build_checking_tuple).collect();
+            let checker: Vec<_> = solution
+                .data()
+                .iter()
+                .enumerate()
+                .map(build_checking_tuple)
+                .collect();
             for (row_idx, &Column(column)) in solution.data().iter().enumerate() {
                 let checker_without_current = {
                     let mut cloned = checker.clone();
                     cloned.remove(row_idx);
                     cloned
                 };
-                assert!(checker_without_current.iter().all(|&checking_tuple|{
+                assert!(checker_without_current.iter().all(|&checking_tuple| {
                     build_checking_tuple((row_idx, &Column(column))) != checking_tuple
                 }));
             }
